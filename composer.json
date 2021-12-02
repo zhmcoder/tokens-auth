@@ -1,0 +1,46 @@
+{
+    "name": "andruby/token-auth",
+    "version": "1.0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andruby"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "auth",
+        "tokens",
+        "guard"
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/database": "~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/auth": "~5.6.0|~5.7.0|~5.8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "fzaninotto/faker": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "MultipleTokenAuth\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        },
+        "classmap": [
+            "tests/Factories"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MultipleTokenAuth\\MultipleTokenAuthServiceProvider"
+            ]
+        }
+    }
+}
