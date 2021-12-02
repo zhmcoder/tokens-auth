@@ -11,6 +11,7 @@ class ApiTokenAuthServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'deep-admin-migrations');
             $this->publishes([
                 __DIR__.'/../config/tokens-auth.php' => config_path('tokens-auth.php'),
             ]);

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 trait HasApiToken
 {
-    public function createToken($user_id): string
+    public function genToken($user_id): string
     {
         $token = Str::random(60);
 
