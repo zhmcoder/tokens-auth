@@ -40,7 +40,8 @@ class UserInfoTokensGuard extends TokenGuard
         }
         //always return user model for check return true
         if ($user == null) {
-            $user = new  UcenterMember();
+            $model = config('tokens-auth.model');
+            $user = new $model;
         }
 
         return $this->user = $user;
