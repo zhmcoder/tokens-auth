@@ -38,7 +38,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MultipleTokenAuth\\MultipleTokenAuthServiceProvider"
+                "Andruby\\ApiToken\\ApiTokenAuthServiceProvider"
             ]
         }
     }

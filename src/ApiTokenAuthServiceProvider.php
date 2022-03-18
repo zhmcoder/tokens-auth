@@ -33,6 +33,6 @@ class ApiTokenAuthServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/tokens-auth.php', 'tokens-auth');
+        $this->mergeConfigFrom(__DIR__.'/../config/tokens-auth.php', 'tokens-auth-config');
     }
 }
