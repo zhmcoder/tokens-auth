@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MultipleTokenAuth\\": "src"
+            "Andruby\\ApiToken\\": "src"
         }
     },
     "autoload-dev": {
