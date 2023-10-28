@@ -12,13 +12,18 @@ trait HasApiToken
     {
         $token = Str::random(60);
 
-        $this->tokens()->updateOrCreate(['user_id' => $user_id], [
-            'api_token' => $token,
-            'expire_at' => time() + config('tokens-auth.token_expire_time')
-        ]);
-
-        $this->resetToMaxActiveTokens();
-
+        if (config('tokens-auth.multi_login')) {
+            $this->tokens()->create(['user_id' => $user_id,
+                'api_token' => $token,
+                'expire_at' => time() + config('tokens-auth.token_expire_time')
+            ]);
+            $this->resetToMaxActiveTokens();
+        } else {
+            $this->tokens()->updateOrCreate(['user_id' => $user_id], [
+                'api_token' => $token,
+                'expire_at' => time() + config('tokens-auth.token_expire_time')
+            ]);
+        }
         return $token;
     }
 
@@ -32,16 +37,16 @@ trait HasApiToken
 
     public function tokens(): HasMany
     {
-        return $this->hasMany(ApiToken::class, 'id', 'user_id');
+        return $this->hasMany(ApiToken::class, 'user_id', 'id');
     }
 
     protected function resetToMaxActiveTokens(): void
     {
-        $totalActiveTokens = config('tokens-auth.active_tokens');
+        $totalActiveTokens = config('tokens-auth.total_active_tokens');
 
         if ($totalActiveTokens !== null && $this->tokens()->count() > $totalActiveTokens) {
             $this->tokens()
-                ->latest()
+                ->oldest()
                 ->skip($totalActiveTokens)
                 ->take($this->tokens()->count() - $totalActiveTokens)
                 ->delete();
