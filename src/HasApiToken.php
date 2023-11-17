@@ -13,13 +13,15 @@ trait HasApiToken
         $token = Str::random(60);
 
         if (config('tokens-auth.multi_login')) {
-            $this->tokens()->create(['user_id' => $user_id,
+            $this->tokens()->create([
+                'user_id' => $user_id,
                 'api_token' => $token,
                 'expire_at' => time() + config('tokens-auth.token_expire_time')
             ]);
             $this->resetToMaxActiveTokens();
         } else {
             $this->tokens()->updateOrCreate(['user_id' => $user_id], [
+                'user_id' => $user_id,
                 'api_token' => $token,
                 'expire_at' => time() + config('tokens-auth.token_expire_time')
             ]);
