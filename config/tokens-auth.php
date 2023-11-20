@@ -10,6 +10,8 @@ return [
 
     'model' => 'App\UcenterMember',
 
+    'member' => 'App\Member',
+
     /*
     |--------------------------------------------------------------------------
     | The amount of active tokens a user can have.

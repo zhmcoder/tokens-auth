@@ -16,4 +16,9 @@ class ApiToken extends Model
     {
         return $this->belongsTo(config('tokens-auth.model'), 'user_id', 'id');
     }
+
+    public function member()
+    {
+        return $this->belongsTo(config('tokens-auth.member'), 'user_id', 'uid');
+    }
 }
