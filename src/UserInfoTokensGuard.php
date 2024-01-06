@@ -61,7 +61,7 @@ class UserInfoTokensGuard extends TokenGuard
             $tokenModel = $this->provider->retrieveByCredentials([
                 $this->storageKey => $token,
             ]);
-            if ($user = $tokenModel) {
+            if ($tokenModel) {
                 $user = $tokenModel->user;
                 Cache::put('token_user_id_' . $token, $user->id, config('tokens-auth.token_expire_time'));
                 return $user->id;
