@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class ApiTokensGuard extends TokenGuard
 {
