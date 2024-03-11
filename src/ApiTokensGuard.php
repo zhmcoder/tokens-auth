@@ -32,6 +32,9 @@ class ApiTokensGuard extends TokenGuard
         if (!empty($token)) {
             $tokenModel = $this->provider->retrieveByCredentials([
                 $this->storageKey => $token,
+                function ($query) {
+                    $query->where('expire_at', '>', time());
+                }
             ]);
             if ($tokenModel) {
                 $user = $tokenModel->user;
@@ -106,5 +109,27 @@ class ApiTokensGuard extends TokenGuard
 //        }
 
         return $validated;
+    }
+
+    public function logout()
+    {
+        $user = $this->user();
+        $this->clearUserData($user);
+        if (!is_null($this->user) && !empty($user->getRememberToken())) {
+            $this->cycleRememberToken($user);
+        }
+    }
+
+    protected function clearUserData(AuthenticatableContract $user)
+    {
+        $token = $this->getTokenForRequest();
+        $user->removeToken($token);
+    }
+
+    protected function cycleRememberToken(AuthenticatableContract $user)
+    {
+        $user->setRememberToken($token = Str::random(60));
+
+        $this->provider->updateRememberToken($user, $token);
     }
 }
