@@ -33,7 +33,7 @@ class ApiTokensGuard extends TokenGuard
         if (!empty($token)) {
             $tokenModel = $this->provider->retrieveByCredentials([
                 $this->storageKey => $token,
-                ['expire_at', '>', time()],
+                [['expire_at', '>', time()]],
             ]);
             if ($tokenModel) {
                 $user = $tokenModel->user;
