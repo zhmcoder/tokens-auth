@@ -33,7 +33,9 @@ class ApiTokensGuard extends TokenGuard
         if (!empty($token)) {
             $tokenModel = $this->provider->retrieveByCredentials([
                 $this->storageKey => $token,
-                [['expire_at', '>', time()]],
+                function ($query) {
+                    $query->where('expire_at', '>', time());
+                }
             ]);
             if ($tokenModel) {
                 $user = $tokenModel->user;
@@ -90,8 +92,7 @@ class ApiTokensGuard extends TokenGuard
             }
 
             if (is_array($value) || $value instanceof Arrayable) {
-                //$query->whereIn($key, $value);
-                $query->where($value[0], $value[1], $value[2]);
+                $query->whereIn($key, $value);
             } else {
                 $query->where($key, $value);
             }
