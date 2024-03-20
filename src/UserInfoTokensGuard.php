@@ -32,9 +32,7 @@ class UserInfoTokensGuard extends TokenGuard
         if (!empty($token)) {
             $tokenModel = $this->provider->retrieveByCredentials([
                 $this->storageKey => $token,
-                function ($query) {
-                    $query->where('expire_at', '>', time());
-                }
+                ['expire_at', '>', time()],
             ]);
             if ($tokenModel) {
                 $user = $tokenModel->user;
